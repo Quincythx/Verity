@@ -6,3 +6,7 @@ from .serializers import TechnologySerializer
 class TechnologyListView(generics.ListAPIView):
     queryset = Technology.objects.all()
     serializer_class = TechnologySerializer
+
+class TechnologyDetailView(generics.RetrieveAPIView):
+    queryset = Technology.objects.all()
+    serializer_class = TechnologySerializer
