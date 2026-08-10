@@ -3,11 +3,17 @@ from .models import Technology, HypeSnapshot, DemandSnapshot
 from .serializers import TechnologySerializer, HypeSnapshotSerializer, DemandSnapshotSerializer
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from rest_framework.permissions import IsAdminUser, AllowAny
 
 
-class TechnologyListView(generics.ListAPIView):
+class TechnologyListView(generics.ListCreateAPIView):
     queryset = Technology.objects.all()
     serializer_class = TechnologySerializer
+
+    def get_permissions(self):
+        if self.request.method == 'POST':
+            return [IsAdminUser()]
+        return [AllowAny()]
 
 class TechnologyDetailView(generics.RetrieveAPIView):
     queryset = Technology.objects.all()
